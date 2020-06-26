@@ -4,6 +4,7 @@
     End Function
 
     Sub Main()
+        initializer.startInit()
         test.compare(AddressOf myCustomCompareFunction)
         Console.ReadKey()
 
