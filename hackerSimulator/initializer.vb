@@ -1,4 +1,6 @@
-﻿Module initializer
+﻿Imports Newtonsoft.Json
+
+Module initializer
     Public Enum ConsoleEvent
         CTRL_C_EVENT = 0
         CTRL_BREAK_EVENT = 1
@@ -16,9 +18,18 @@
         Console.Write("enter name: ")
         Console.ReadLine()
 
-        Dim data As Object = {
-            "name" = "test"
-        }
+        Dim data As New Dictionary(Of String, String)
+        data.Add("money", "6969696969")
+
+        Console.ForegroundColor = ConsoleColor.Yellow
+        Console.WriteLine(JsonConvert.SerializeObject(data))
+        Console.WriteLine(data)
+        Console.ResetColor()
+
+        Console.Clear()
+
+        My.Computer.FileSystem.WriteAllText(Environment.CurrentDirectory & "\test.json", JsonConvert.SerializeObject(data), False)
+
 
         handler = AddressOf HandleShutdown
         If Not SetConsoleCtrlHandler(handler, True) Then
