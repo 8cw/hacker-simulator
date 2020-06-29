@@ -18,8 +18,9 @@ Module initializer
         Console.Write("enter name: ")
         Console.ReadLine()
 
-        Dim data As New Dictionary(Of String, String)
-        data.Add("money", "6969696969")
+        Dim data As New Object With {
+            .money = "test"
+        }
 
         Console.ForegroundColor = ConsoleColor.Yellow
         Console.WriteLine(JsonConvert.SerializeObject(data))
