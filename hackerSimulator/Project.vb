@@ -15,5 +15,10 @@
         While (Not (Console.ReadKey(True).Key = ConsoleKey.S))
             Console.WriteLine("press s")
         End While
+
+        writeModule.startRunning()
+
+        Console.WriteLine("PROGRAM DONE.")
+        Console.ReadKey()
     End Sub
 End Module

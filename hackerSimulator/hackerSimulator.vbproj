@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="Project.vb" />
     <Compile Include="test.vb" />
+    <Compile Include="writeModule.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

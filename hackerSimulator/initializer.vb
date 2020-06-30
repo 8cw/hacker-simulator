@@ -18,9 +18,8 @@ Module initializer
         Console.Write("enter name: ")
         Console.ReadLine()
 
-        Dim data As New Object With {
-            .money = "test"
-        }
+        Dim data As New Dictionary(Of String, String)
+        data.Add("money", "9999")
 
         Console.ForegroundColor = ConsoleColor.Yellow
         Console.WriteLine(JsonConvert.SerializeObject(data))
@@ -30,6 +29,7 @@ Module initializer
         Console.Clear()
 
         My.Computer.FileSystem.WriteAllText(Environment.CurrentDirectory & "\test.json", JsonConvert.SerializeObject(data), False)
+
 
 
         handler = AddressOf HandleShutdown
