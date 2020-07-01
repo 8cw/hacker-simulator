@@ -1,4 +1,4 @@
 .vs/
 packages/
-hacker-simulator/bin/
-hacker-simulator/obj/
+hackerSimulator/bin/**
+hackerSimulator/obj/**
