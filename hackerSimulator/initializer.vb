@@ -15,6 +15,16 @@ Module initializer
     Private handler As ConsoleEventDelegate
 
     Sub startInit()
+        Dim oldUserData As IUserData
+        Try
+            Dim savedData = CType(JsonConvert.DeserializeObject(My.Computer.FileSystem.ReadAllText(Environment.CurrentDirectory & "\data.json")), ISerializedUserData)
+            oldUserData = New UserData(CInt(savedData.money))
+        Catch ex As Exception
+            Console.WriteLine(ex)
+            oldUserData = New UserData(0)
+        End Try
+        Console.WriteLine(oldUserData)
+        Console.WriteLine(oldUserData.money)
         Console.Write("enter name: ")
         Console.ReadLine()
 
@@ -28,7 +38,7 @@ Module initializer
 
         Console.Clear()
 
-        My.Computer.FileSystem.WriteAllText(Environment.CurrentDirectory & "\test.json", JsonConvert.SerializeObject(data), False)
+        My.Computer.FileSystem.WriteAllText(Environment.CurrentDirectory & "\data.json", JsonConvert.SerializeObject(data), False)
 
 
 

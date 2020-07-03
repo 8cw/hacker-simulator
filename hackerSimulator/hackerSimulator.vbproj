@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="getUserInput.vb" />
     <Compile Include="initializer.vb" />
+    <Compile Include="ISerializedUserData.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -91,7 +92,8 @@
     </Compile>
     <Compile Include="Project.vb" />
     <Compile Include="test.vb" />
-    <Compile Include="writeModule.vb" />
+    <Compile Include="UserData.vb" />
+    <Compile Include="IUserData.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
