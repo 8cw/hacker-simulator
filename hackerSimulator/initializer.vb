@@ -17,7 +17,8 @@ Module initializer
     Sub startInit()
         Dim oldUserData As IUserData
         Try
-            Dim savedData = CType(JsonConvert.DeserializeObject(My.Computer.FileSystem.ReadAllText(Environment.CurrentDirectory & "\data.json")), ISerializedUserData)
+            Debug.WriteLine(JsonConvert.DeserializeObject(My.Computer.FileSystem.ReadAllText(Environment.CurrentDirectory & "\data.json")))
+            Dim savedData = CType(JsonConvert.DeserializeObject(My.Computer.FileSystem.ReadAllText(Environment.CurrentDirectory & "\data.json"), New JsonSerializerSettings() With {.TypeNameHandling = TypeNameHandling.Auto}), ISerializedUserData)
             oldUserData = New UserData(CInt(savedData.money))
         Catch ex As Exception
             Console.WriteLine(ex)
