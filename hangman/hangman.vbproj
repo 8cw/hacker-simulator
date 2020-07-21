@@ -6,9 +6,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A24DC21C-8F53-4787-9943-64E664D633CA}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <StartupObject>hackerSimulator.Project</StartupObject>
-    <RootNamespace>hackerSimulator</RootNamespace>
-    <AssemblyName>hackerSimulator</AssemblyName>
+    <StartupObject>hangman.Project</StartupObject>
+    <RootNamespace>hangman</RootNamespace>
+    <AssemblyName>hangman</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Console</MyType>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -22,7 +22,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>hackerSimulator.xml</DocumentationFile>
+    <DocumentationFile>hangman.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -32,7 +32,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>hackerSimulator.xml</DocumentationFile>
+    <DocumentationFile>hangman.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -72,9 +72,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="getUserInput.vb" />
-    <Compile Include="initializer.vb" />
-    <Compile Include="ISerializedUserData.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -91,9 +88,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Project.vb" />
-    <Compile Include="test.vb" />
-    <Compile Include="UserData.vb" />
-    <Compile Include="IUserData.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
