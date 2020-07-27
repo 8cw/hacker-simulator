@@ -1,4 +1,7 @@
-﻿Module Project
+﻿Imports System.Text
+Imports System.Text.RegularExpressions
+
+Module Project
     ' Make global items
     ' Make constants
     ''' <summary>
@@ -138,10 +141,12 @@
         End If
         Dim availableWords = PossibleWords.Item(difficulty)
 
-        selectedWord = availableWords(randomObj.Next(0, availableWords.Length - 1))
+        selectedWord = availableWords(randomObj.Next(0, availableWords.Length - 1)).ToLower()
+        userEnteredWord = Regex.Replace(selectedWord, ".", "_")
         Debug.WriteLine(String.Format("[PROJECT] Generated random word {0}", selectedWord))
 
         While (Not userEnteredWord = selectedWord) And (livesRemaining > 0)
+            Debug.WriteLine(String.Format("[PROJECT] Current user guessed word is {0}", userEnteredWord))
             ' Redraw hangman state
             Console.Clear()
             Console.Write(HANGMAN_OBJ.Item(MAX_LIVES - livesRemaining))
@@ -149,7 +154,26 @@
             Console.Write(Environment.NewLine & Environment.NewLine)
 
             ' Ask user for their letter
-            SlowType.slowType("Please enter your letter guess", WORD_TYPE_INTERVAL, ConsoleLogType.Question)
+            SlowType.slowType("Please enter your letter guess: ", WORD_TYPE_INTERVAL, ConsoleLogType.Question)
+            Dim userGuess = CChar(Console.ReadKey().Key.ToString().ToLower())
+
+            Debug.WriteLine(String.Format("[PROJECT] User guessed {0}", userGuess))
+
+            If (selectedWord.Contains(userGuess)) Then
+                ' Find all occurances in selectedWord
+                Dim newUserEnteredWord = New StringBuilder(userEnteredWord)
+                For letterIndex = 0 To selectedWord.Length
+                    Dim letter = selectedWord(letterIndex)
+
+                    If letter = userGuess Then
+                        newUserEnteredWord(letterIndex) = userGuess
+                    End If
+                Next
+                userEnteredWord = newUserEnteredWord
+            Else
+                ' User guessed wrong
+                livesRemaining = livesRemaining - 1
+            End If
         End While
 
         Console.ReadKey(True)
