@@ -149,7 +149,8 @@ Module Project
             Debug.WriteLine(String.Format("[PROJECT] Current user guessed word is {0}", userEnteredWord))
             ' Redraw hangman state
             Console.Clear()
-            Console.Write(HANGMAN_OBJ.Item(MAX_LIVES - livesRemaining))
+            Console.WriteLine(HANGMAN_OBJ.Item(MAX_LIVES - livesRemaining))
+            Console.WriteLine(userEnteredWord)
             ' Drop 2 lines
             Console.Write(Environment.NewLine & Environment.NewLine)
 
@@ -162,20 +163,33 @@ Module Project
             If (selectedWord.Contains(userGuess)) Then
                 ' Find all occurances in selectedWord
                 Dim newUserEnteredWord = New StringBuilder(userEnteredWord)
-                For letterIndex = 0 To selectedWord.Length
+                For letterIndex = 0 To selectedWord.Length - 1
                     Dim letter = selectedWord(letterIndex)
 
                     If letter = userGuess Then
                         newUserEnteredWord(letterIndex) = userGuess
                     End If
                 Next
-                userEnteredWord = newUserEnteredWord
+                userEnteredWord = newUserEnteredWord.ToString()
             Else
                 ' User guessed wrong
                 livesRemaining = livesRemaining - 1
             End If
         End While
 
+        ' Game is over, check if user won
+        Console.Clear()
+        If (userEnteredWord = selectedWord) Then
+            slowTypeNewLine(String.Format("Congratulations, {0}, you saved the hangman!", userName), WORD_TYPE_INTERVAL, ConsoleLogType.Info)
+        Else
+            slowTypeNewLine("Oh no! You were unable to save the hangman in time!", WORD_TYPE_INTERVAL, ConsoleLogType.Info)
+        End If
+        ' Drop a line
+        Console.WriteLine()
+
+        ' Tell user game is over
+        slowTypeNewLine("Thanks for playing!", WORD_TYPE_INTERVAL, ConsoleLogType.Info)
+        slowTypeNewLine("Press any key to close the game.", WORD_TYPE_INTERVAL, ConsoleLogType.RequestAction)
         Console.ReadKey(True)
     End Sub
 End Module
