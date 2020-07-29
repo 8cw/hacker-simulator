@@ -224,6 +224,7 @@ Module Project
             slowTypeNewLine(String.Format("Congratulations, {0}, you saved the hangman!", userName), WORD_TYPE_INTERVAL, ConsoleLogType.Info)
         Else
             slowTypeNewLine("Oh no! You were unable to save the hangman in time!", WORD_TYPE_INTERVAL, ConsoleLogType.Info)
+            slowTypeNewLine(String.Format("The word was {0}", selectedWord), WORD_TYPE_INTERVAL, ConsoleLogType.Info)
         End If
         ' Drop a line
         Console.WriteLine()
