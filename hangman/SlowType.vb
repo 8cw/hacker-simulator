@@ -26,9 +26,6 @@
 ''' </list>
 ''' </remarks>
 Module SlowType
-    ' Declare user32 functions
-    ' https://stackoverflow.com/questions/6116669/how-can-i-disable-a-users-mouse-and-keyboard-make-the-mouse-not-visible-in-vb
-    Private Declare Function BlockInput Lib "user32" Alias "BlockInput" (ByVal fBlock As Integer) As Integer
     ''' <summary>
     ''' Slowly types out a sentence, yielding the thread
     ''' </summary>
@@ -56,12 +53,15 @@ Module SlowType
                 Throw New ApplicationException("logType is invalid: " & logType.ToString())
         End Select
 
-        BlockInput(1)
         For Each letter In message
             Console.Write(letter)
             Threading.Thread.Sleep(interval)
         Next
-        BlockInput(0)
+
+        ' Clear the console buffer
+        While Console.KeyAvailable
+            Console.ReadKey(True)
+        End While
 
         Console.ForegroundColor = currentColour
     End Sub
@@ -107,12 +107,15 @@ Module SlowType
                 Throw New ApplicationException("logType is invalid: " & logType.ToString())
         End Select
 
-        BlockInput(1)
         For Each line In message.Split(CChar(Environment.NewLine))
             Console.Write(line)
             Threading.Thread.Sleep(interval)
         Next
-        BlockInput(0)
+
+        ' Clear the console buffer
+        While Console.KeyAvailable
+            Console.ReadKey(True)
+        End While
 
         Console.ForegroundColor = currentColour
     End Sub
