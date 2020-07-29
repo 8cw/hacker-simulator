@@ -61,6 +61,11 @@ Module Project
     ''' </summary>
     Private userEnteredWord As String
     ''' <summary>
+    ''' A dictionary which key maps to a boolean determining if the user has already tried this key.
+    ''' Please note the value is insignificant, and you should rather be checking to see if the value is void
+    ''' </summary>
+    Private userAttemptedCharacters As Dictionary(Of String, Boolean) = New Dictionary(Of String, Boolean)
+    ''' <summary>
     ''' The random object to use to calculate random things
     ''' </summary>
     Private randomObj As New Random
@@ -101,6 +106,37 @@ Module Project
         Return CInt(difficulty)
     End Function
 
+    ''' <summary>
+    ''' Asks the user what character they would like to guess, checking if they have already guessed that character.
+    ''' </summary>
+    ''' <returns></returns>
+    Private Function getUserGuess() As Char
+        Dim newStr As String = ""
+
+        While newStr = ""
+            SlowType.slowType("Please enter your letter guess: ", WORD_TYPE_INTERVAL, ConsoleLogType.Question)
+            Dim userGuess = Console.ReadKey().Key
+            Console.Write(Environment.NewLine) ' Exit the current line
+
+            ' Check to see if it's withing A-Z range, using ASCII values 97=a and 122=z
+            If Not (userGuess >= 65 And userGuess <= 90) Then
+                slowTypeNewLine("Please only enter a letter from a-z", WORD_TYPE_INTERVAL, ConsoleLogType.GameError)
+                Continue While
+            End If
+
+            If Not userAttemptedCharacters.ContainsKey(userGuess.ToString()) Then
+                ' User has now guessed it
+                userAttemptedCharacters.Add(userGuess.ToString(), True)
+                newStr = userGuess.ToString()
+            Else
+                slowTypeNewLine("You have already guessed that letter!", WORD_TYPE_INTERVAL, ConsoleLogType.GameError)
+                Continue While
+            End If
+        End While
+
+        Return CChar(newStr)
+    End Function
+
     Public Sub Main()
         Debug.WriteLine("[PROJECT] Starting program")
         ' Run initializer
@@ -129,7 +165,7 @@ Module Project
         ' Tell the user their difficulty and then wait for them to ackowledge it
         slowTypeNewLine(String.Format("{0}, you have selected {1} as your difficulty.", userName, difficulty), WORD_TYPE_INTERVAL, ConsoleLogType.Info)
         Threading.Thread.Sleep(100)
-        slowTypeNewLine("Please press any key to continue", WORD_TYPE_INTERVAL, ConsoleLogType.RequestAction)
+        slowTypeNewLine("Please press any key to begin the game.", WORD_TYPE_INTERVAL, ConsoleLogType.RequestAction)
         Console.ReadKey(True)
 
         ' Start game
@@ -150,13 +186,18 @@ Module Project
             ' Redraw hangman state
             Console.Clear()
             Console.WriteLine(HANGMAN_OBJ.Item(MAX_LIVES - livesRemaining))
-            Console.WriteLine(userEnteredWord)
-            ' Drop 2 lines
-            Console.Write(Environment.NewLine & Environment.NewLine)
+            Console.WriteLine()
+            ' Write the user's entered score
+            Dim wordNums = ""
+            For i = 1 To selectedWord.Length
+                wordNums += CStr(i)
+            Next
+            Console.WriteLine(spaceMessageOut(wordNums))
+            Console.WriteLine(spaceMessageOut(userEnteredWord))
+            Console.WriteLine(Environment.NewLine)
 
             ' Ask user for their letter
-            SlowType.slowType("Please enter your letter guess: ", WORD_TYPE_INTERVAL, ConsoleLogType.Question)
-            Dim userGuess = CChar(Console.ReadKey().Key.ToString().ToLower())
+            Dim userGuess = getUserGuess()
 
             Debug.WriteLine(String.Format("[PROJECT] User guessed {0}", userGuess))
 
