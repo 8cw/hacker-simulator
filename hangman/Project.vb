@@ -115,11 +115,15 @@ Module Project
 
         While newStr = ""
             SlowType.slowType("Please enter your letter guess: ", WORD_TYPE_INTERVAL, ConsoleLogType.Question)
-            Dim userGuess = Console.ReadKey().Key
+            Dim userGuess = Console.ReadKey().Key.ToString().ToLower()
             Console.Write(Environment.NewLine) ' Exit the current line
 
+            Debug.WriteLine("[getUserGuess] User guessed letter " & userGuess & " which ASCII is " & Asc(userGuess))
+
             ' Check to see if it's withing A-Z range, using ASCII values 97=a and 122=z
-            If Not (userGuess >= 65 And userGuess <= 90) Then
+            ' We check the length is equals to 1 as well because something like 3 will give the ToString().ToLower of d3, and when ran through AscW this will give the ASCII value for d which is 100.
+            ' Which would fit inside our criteria, even though it shouldn't.
+            If Not (AscW(userGuess) >= 97 And AscW(userGuess) <= 122 And userGuess.Length = 1) Then
                 slowTypeNewLine("Please only enter a letter from a-z", WORD_TYPE_INTERVAL, ConsoleLogType.GameError)
                 Continue While
             End If
