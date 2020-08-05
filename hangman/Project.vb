@@ -181,6 +181,7 @@ Module Project
         End If
         Dim availableWords = PossibleWords.Item(difficulty)
 
+        ' Set the word selected by computer
         selectedWord = availableWords(randomObj.Next(0, availableWords.Length - 1)).ToLower()
         userEnteredWord = Regex.Replace(selectedWord, ".", "_")
         Debug.WriteLine(String.Format("[PROJECT] Generated random word {0}", selectedWord))
@@ -194,9 +195,9 @@ Module Project
             ' Write the user's entered score
             Dim wordNums = ""
             For i = 1 To selectedWord.Length
-                wordNums += CStr(i)
+                wordNums += " " & CStr(i)
             Next
-            Console.WriteLine(spaceMessageOut(wordNums))
+            Console.WriteLine(spaceMessageOutBySpace(wordNums))
             Console.WriteLine(spaceMessageOut(userEnteredWord))
             Console.WriteLine(Environment.NewLine)
 

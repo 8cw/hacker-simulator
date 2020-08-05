@@ -1,5 +1,6 @@
 ﻿Imports System.Text.RegularExpressions
 
+Module Util
     Enum ConsoleLogType
         Info
         GameError
