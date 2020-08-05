@@ -1,4 +1,5 @@
-﻿Module Util
+﻿Imports System.Text.RegularExpressions
+
     Enum ConsoleLogType
         Info
         GameError
@@ -10,7 +11,7 @@
     ''' Spaces a message out by inserting a space between each character
     ''' </summary>
     ''' <param name="message">The message to space out</param>
-    ''' <returns></returns>
+    ''' <returns>The spaced out message</returns>
     Function spaceMessageOut(message As String) As String
         Dim newMessage = ""
 
@@ -20,6 +21,22 @@
         Next
 
         ' Trim the last space
+        Return newMessage.Substring(0, newMessage.Length - 1)
+    End Function
+
+    ''' <summary>
+    ''' The same as spaceMessageOut, but separates each item by spaces rather than each character.
+    ''' </summary>
+    ''' <param name="message">The message to space out</param>
+    ''' <returns>The spaced out message</returns>
+    Function spaceMessageOutBySpace(message As String) As String
+        Dim newMessage = ""
+
+        ' Space the message out
+        For Each c In Regex.Matches(message, "\S+")
+            newMessage += c.ToString() + " "
+        Next
+
         Return newMessage.Substring(0, newMessage.Length - 1)
     End Function
 End Module
