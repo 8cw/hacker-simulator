@@ -22,7 +22,7 @@ Module Util
         Next
 
         ' Trim the last space
-        Return newMessage.Substring(0, newMessage.Length - 1)
+        Return newMessage.TrimEnd(CChar(" "))
     End Function
 
     ''' <summary>
@@ -38,6 +38,6 @@ Module Util
             newMessage += c.ToString() + " "
         Next
 
-        Return newMessage.Substring(0, newMessage.Length - 1)
+        Return newMessage.TrimEnd(CChar(" "))
     End Function
 End Module

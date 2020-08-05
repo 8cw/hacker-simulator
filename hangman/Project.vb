@@ -201,6 +201,15 @@ Module Project
             Console.WriteLine(spaceMessageOut(userEnteredWord))
             Console.WriteLine(Environment.NewLine)
 
+            ' Write the letters the user has guessed
+            Console.WriteLine("You have guessed the following letters:")
+            Dim userGuessedLetters = ""
+            For Each guess In userAttemptedCharacters.Keys()
+                userGuessedLetters += guess & " "
+            Next
+            ' Output the user guess
+            Console.WriteLine(userGuessedLetters.TrimEnd(CChar(" ")))
+
             ' Ask user for their letter
             Dim userGuess = getUserGuess()
 
