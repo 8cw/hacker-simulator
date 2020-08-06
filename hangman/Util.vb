@@ -13,7 +13,7 @@ Module Util
     ''' </summary>
     ''' <param name="message">The message to space out</param>
     ''' <returns>The spaced out message</returns>
-    Function spaceMessageOut(message As String) As String
+    Function SpaceMessageOut(message As String) As String
         Dim newMessage = ""
 
         ' Space the message out
@@ -26,11 +26,11 @@ Module Util
     End Function
 
     ''' <summary>
-    ''' The same as spaceMessageOut, but separates each item by spaces rather than each character.
+    ''' The same as SpaceMessageOut, but separates each item by spaces rather than each character.
     ''' </summary>
     ''' <param name="message">The message to space out</param>
     ''' <returns>The spaced out message</returns>
-    Function spaceMessageOutBySpace(message As String) As String
+    Function SpaceMessageOutBySpace(message As String) As String
         Dim newMessage = ""
 
         ' Space the message out

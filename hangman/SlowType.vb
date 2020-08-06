@@ -8,19 +8,19 @@
 '''         <description>Function description</description>
 '''     </listheader>
 '''     <item>
-'''         <term>slowType</term>
+'''         <term>SlowType</term>
 '''         <description>Slowly types out a sentence, yielding the thread</description>
 '''     </item>
 '''     <item>
-'''         <term>slowTypeNewLine</term>
+'''         <term>SlowTypeNewLine</term>
 '''         <description>Slowly types out a sentence, yielding the thread, then does a new line character</description>
 '''     </item>
 '''     <item>
-'''         <term>slowTypeLine</term>
+'''         <term>SlowTypeLine</term>
 '''         <description>Slowly types out a sentence, but does lines at a time, yielding the main thread</description>
 '''     </item>
 '''     <item>
-'''         <term>slowTypeLineNewLine</term>
+'''         <term>SlowTypeLineNewLine</term>
 '''         <description>Slowly types out a sentence, but does lines at a time, yielding the main thread, and then does a new line character</description>
 '''     </item>
 ''' </list>
@@ -34,8 +34,8 @@ Module SlowType
     ''' <param name="logType">The colour that should be used when logging</param>
     ''' <example><code>
     ''' ' Types "Hello World" over 1.1 seconds
-    ''' Util.slowType("Hello World", 100)</code></example>
-    Public Sub slowType(message As String, interval As Integer, logType As ConsoleLogType)
+    ''' Util.SlowType("Hello World", 100)</code></example>
+    Public Sub SlowType(message As String, interval As Integer, logType As ConsoleLogType)
         ' Save the current console colour to reset back to it later
         Dim currentColour = Console.ForegroundColor
 
@@ -74,9 +74,9 @@ Module SlowType
     ''' <param name="logType">The colour that should be used when logging</param>
     ''' <example><code>
     ''' ' Types "Hello World" over 1.1 seconds
-    ''' Util.slowType("Hello World", 100)</code></example>
-    Public Sub slowTypeNewLine(message As String, interval As Integer, logType As ConsoleLogType)
-        slowType(message, interval, logType)
+    ''' Util.SlowType("Hello World", 100)</code></example>
+    Public Sub SlowTypeNewLine(message As String, interval As Integer, logType As ConsoleLogType)
+        SlowType(message, interval, logType)
         Console.WriteLine()
     End Sub
 
@@ -88,8 +88,8 @@ Module SlowType
     ''' <param name="logType">The colour that should be used when logging</param>
     ''' <example><code>
     ''' ' Types "Hello World" over 1.1 seconds
-    ''' Util.slowType(String.Format("Hello{0}World", Environment.NewLine), 100)</code></example>
-    Public Sub slowTypeLine(message As String, interval As Integer, logType As ConsoleLogType)
+    ''' Util.SlowType(String.Format("Hello{0}World", Environment.NewLine), 100)</code></example>
+    Public Sub SlowTypeLine(message As String, interval As Integer, logType As ConsoleLogType)
         ' Save the current console colour to reset back to it later
         Dim currentColour = Console.ForegroundColor
 
@@ -128,9 +128,9 @@ Module SlowType
     ''' <param name="logType">The colour that should be used when logging</param>
     ''' <example><code>
     ''' ' Types "Hello World" over 1.1 seconds
-    ''' Util.slowType(String.Format("Hello{0}World", Environment.NewLine), 100)</code></example>
-    Public Sub slowTypeLineNewLine(message As String, interval As Integer, logType As ConsoleLogType)
-        slowTypeLine(message, interval, logType)
+    ''' Util.SlowType(String.Format("Hello{0}World", Environment.NewLine), 100)</code></example>
+    Public Sub SlowTypeLineNewLine(message As String, interval As Integer, logType As ConsoleLogType)
+        SlowTypeLine(message, interval, logType)
         Console.WriteLine()
     End Sub
 End Module

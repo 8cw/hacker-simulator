@@ -51,24 +51,24 @@ Module Project
     ''' <summary>
     ''' An integer describing the amount of lives the user has remaining for the game
     ''' </summary>
-    Private livesRemaining As Integer = MAX_LIVES
+    Private LivesRemaining As Integer = MAX_LIVES
     ''' <summary>
     ''' The word the user has to guess
     ''' </summary>
-    Private selectedWord As String
+    Private SelectedWord As String
     ''' <summary>
     ''' The word the user has guessed so far
     ''' </summary>
-    Private userEnteredWord As String
+    Private UserEnteredWord As String
     ''' <summary>
     ''' A dictionary which key maps to a boolean determining if the user has already tried this key.
     ''' Please note the value is insignificant, and you should rather be checking to see if the value is void
     ''' </summary>
-    Private userAttemptedCharacters As Dictionary(Of String, Boolean) = New Dictionary(Of String, Boolean)
+    Private UserAttemptedCharacters As Dictionary(Of String, Boolean) = New Dictionary(Of String, Boolean)
     ''' <summary>
     ''' The random object to use to calculate random things
     ''' </summary>
-    Private randomObj As New Random
+    Private RandomObj As New Random
 
     ''' <summary>
     ''' Asks the user for a difficulty between <c>MIN_WORD_COUNT</c> and <c>MAX_WORD_COUNT</c> repeatedly until they give a valid response.
@@ -80,14 +80,14 @@ Module Project
         While Not difficulty.HasValue Or difficulty < MIN_WORD_COUNT Or difficulty > MAX_WORD_COUNT
             difficulty = Nothing
 
-            SlowType.slowType(String.Format("Please enter how many characters the word should be (between {0}-{1}): ", MIN_WORD_COUNT, MAX_WORD_COUNT), WORD_TYPE_INTERVAL, ConsoleLogType.Question)
+            SlowType.SlowType(String.Format("Please enter how many characters the word should be (between {0}-{1}): ", MIN_WORD_COUNT, MAX_WORD_COUNT), WORD_TYPE_INTERVAL, ConsoleLogType.Question)
             Try
                 difficulty = CInt(Console.ReadLine())
             Catch ex As Exception
                 If ex.GetType().ToString() = "System.InvalidCastException" Then
-                    slowTypeNewLine("Please only enter numbers.", WORD_TYPE_INTERVAL, ConsoleLogType.GameError)
+                    SlowTypeNewLine("Please only enter numbers.", WORD_TYPE_INTERVAL, ConsoleLogType.GameError)
                 ElseIf ex.GetType().ToString() = "System.OutOfMemoryException" Then
-                    slowTypeNewLine("Please install more RAM.", WORD_TYPE_INTERVAL, ConsoleLogType.GameError)
+                    SlowTypeNewLine("Please install more RAM.", WORD_TYPE_INTERVAL, ConsoleLogType.GameError)
                 End If
             End Try
 
@@ -110,30 +110,30 @@ Module Project
     ''' Asks the user what character they would like to guess, checking if they have already guessed that character.
     ''' </summary>
     ''' <returns></returns>
-    Private Function getUserGuess() As Char
+    Private Function GetUserGuess() As Char
         Dim newStr As String = ""
 
         While newStr = ""
-            SlowType.slowType("Please enter your letter guess: ", WORD_TYPE_INTERVAL, ConsoleLogType.Question)
+            SlowType.SlowType("Please enter your letter guess: ", WORD_TYPE_INTERVAL, ConsoleLogType.Question)
             Dim userGuess = Console.ReadKey().Key.ToString().ToLower()
             Console.Write(Environment.NewLine) ' Exit the current line
 
-            Debug.WriteLine("[getUserGuess] User guessed letter " & userGuess & " which ASCII is " & Asc(userGuess))
+            Debug.WriteLine("[GetUserGuess] User guessed letter " & userGuess & " which ASCII is " & Asc(userGuess))
 
             ' Check to see if it's withing A-Z range, using ASCII values 97=a and 122=z
             ' We check the length is equals to 1 as well because something like 3 will give the ToString().ToLower of d3, and when ran through AscW this will give the ASCII value for d which is 100.
             ' Which would fit inside our criteria, even though it shouldn't.
             If Not (AscW(userGuess) >= 97 And AscW(userGuess) <= 122 And userGuess.Length = 1) Then
-                slowTypeNewLine("Please only enter a letter from a-z", WORD_TYPE_INTERVAL, ConsoleLogType.GameError)
+                SlowTypeNewLine("Please only enter a letter from a-z", WORD_TYPE_INTERVAL, ConsoleLogType.GameError)
                 Continue While
             End If
 
-            If Not userAttemptedCharacters.ContainsKey(userGuess.ToString()) Then
+            If Not UserAttemptedCharacters.ContainsKey(userGuess.ToString()) Then
                 ' User has now guessed it
-                userAttemptedCharacters.Add(userGuess.ToString(), True)
+                UserAttemptedCharacters.Add(userGuess.ToString(), True)
                 newStr = userGuess.ToString()
             Else
-                slowTypeNewLine("You have already guessed that letter!", WORD_TYPE_INTERVAL, ConsoleLogType.GameError)
+                SlowTypeNewLine("You have already guessed that letter!", WORD_TYPE_INTERVAL, ConsoleLogType.GameError)
                 Continue While
             End If
         End While
@@ -148,18 +148,18 @@ Module Project
 
         Debug.WriteLine("[PROJECT] Getting user name")
         ' get user name and clear console
-        SlowType.slowType("Please enter your name: ", WORD_TYPE_INTERVAL, ConsoleLogType.Question)
+        SlowType.SlowType("Please enter your name: ", WORD_TYPE_INTERVAL, ConsoleLogType.Question)
         Dim userName = Console.ReadLine()
         Console.Clear()
 
         Debug.WriteLine("[PROJECT] Display splash screen")
         ' Write the splash screen
-        slowTypeNewLine(String.Format("Welcome, {0} to", userName), WORD_TYPE_INTERVAL, ConsoleLogType.Info)
-        slowTypeLineNewLine(SPLASH_SCREEN, WORD_LINE_INTERVAL, ConsoleLogType.Info)
+        SlowTypeNewLine(String.Format("Welcome, {0} to", userName), WORD_TYPE_INTERVAL, ConsoleLogType.Info)
+        SlowTypeLineNewLine(SPLASH_SCREEN, WORD_LINE_INTERVAL, ConsoleLogType.Info)
 
         ' Wait small time for user to feel the vibe, then allow them to start game
         Threading.Thread.Sleep(750)
-        SlowType.slowType("Press any key to start game.", WORD_TYPE_INTERVAL, ConsoleLogType.RequestAction)
+        SlowType.SlowType("Press any key to start game.", WORD_TYPE_INTERVAL, ConsoleLogType.RequestAction)
         ' Wait until user presses key
         Console.ReadKey(True)
         Console.Clear()
@@ -167,9 +167,9 @@ Module Project
         Dim difficulty = GetUserDifficulty()
 
         ' Tell the user their difficulty and then wait for them to ackowledge it
-        slowTypeNewLine(String.Format("{0}, you have selected {1} as your difficulty.", userName, difficulty), WORD_TYPE_INTERVAL, ConsoleLogType.Info)
+        SlowTypeNewLine(String.Format("{0}, you have selected {1} as your difficulty.", userName, difficulty), WORD_TYPE_INTERVAL, ConsoleLogType.Info)
         Threading.Thread.Sleep(100)
-        slowTypeNewLine("Please press any key to begin the game.", WORD_TYPE_INTERVAL, ConsoleLogType.RequestAction)
+        SlowTypeNewLine("Please press any key to begin the game.", WORD_TYPE_INTERVAL, ConsoleLogType.RequestAction)
         Console.ReadKey(True)
 
         ' Start game
@@ -177,78 +177,78 @@ Module Project
 
         ' Pick word
         If Not PossibleWords.ContainsKey(difficulty) Then
-            slowTypeNewLine(String.Format("ERROR. Unable to find words for {0} difficulty.", difficulty), WORD_TYPE_INTERVAL, ConsoleLogType.GameError)
+            SlowTypeNewLine(String.Format("ERROR. Unable to find words for {0} difficulty.", difficulty), WORD_TYPE_INTERVAL, ConsoleLogType.GameError)
         End If
         Dim availableWords = PossibleWords.Item(difficulty)
 
         ' Set the word selected by computer
-        selectedWord = availableWords(randomObj.Next(0, availableWords.Length - 1)).ToLower()
-        userEnteredWord = Regex.Replace(selectedWord, ".", "_")
-        Debug.WriteLine(String.Format("[PROJECT] Generated random word {0}", selectedWord))
+        SelectedWord = availableWords(RandomObj.Next(0, availableWords.Length - 1)).ToLower()
+        UserEnteredWord = Regex.Replace(SelectedWord, ".", "_")
+        Debug.WriteLine(String.Format("[PROJECT] Generated random word {0}", SelectedWord))
 
-        While (Not userEnteredWord = selectedWord) And (livesRemaining > 0)
-            Debug.WriteLine(String.Format("[PROJECT] Current user guessed word is {0}", userEnteredWord))
+        While (Not UserEnteredWord = SelectedWord) And (LivesRemaining > 0)
+            Debug.WriteLine(String.Format("[PROJECT] Current user guessed word is {0}", UserEnteredWord))
             ' Redraw hangman state
             Console.Clear()
-            Console.WriteLine(HANGMAN_OBJ.Item(MAX_LIVES - livesRemaining))
+            Console.WriteLine(HANGMAN_OBJ.Item(MAX_LIVES - LivesRemaining))
             Console.WriteLine()
             ' Write the user's entered score
             Dim wordNums = ""
-            For i = 1 To selectedWord.Length
+            For i = 1 To SelectedWord.Length
                 wordNums += " " & CStr(i)
             Next
-            Console.WriteLine(spaceMessageOutBySpace(wordNums))
-            Console.WriteLine(spaceMessageOut(userEnteredWord))
+            Console.WriteLine(SpaceMessageOutBySpace(wordNums))
+            Console.WriteLine(SpaceMessageOut(UserEnteredWord))
             Console.WriteLine(Environment.NewLine)
 
             ' Write the amount of lives remaining
-            Console.WriteLine(String.Format("You have {0} lives remaining!", livesRemaining))
+            Console.WriteLine(String.Format("You have {0} lives remaining!", LivesRemaining))
 
             ' Write the letters the user has guessed
             Console.WriteLine("You have guessed the following letters:")
             Dim userGuessedLetters = ""
-            For Each guess In userAttemptedCharacters.Keys()
+            For Each guess In UserAttemptedCharacters.Keys()
                 userGuessedLetters += guess & " "
             Next
             ' Output the user guess
             Console.WriteLine(userGuessedLetters.TrimEnd(CChar(" ")))
 
             ' Ask user for their letter
-            Dim userGuess = getUserGuess()
+            Dim userGuess = GetUserGuess()
 
             Debug.WriteLine(String.Format("[PROJECT] User guessed {0}", userGuess))
 
-            If (selectedWord.Contains(userGuess)) Then
-                ' Find all occurances in selectedWord
-                Dim newUserEnteredWord = New StringBuilder(userEnteredWord)
-                For letterIndex = 0 To selectedWord.Length - 1
-                    Dim letter = selectedWord(letterIndex)
+            If (SelectedWord.Contains(userGuess)) Then
+                ' Find all occurances in SelectedWord
+                Dim newUserEnteredWord = New StringBuilder(UserEnteredWord)
+                For letterIndex = 0 To SelectedWord.Length - 1
+                    Dim letter = SelectedWord(letterIndex)
 
                     If letter = userGuess Then
                         newUserEnteredWord(letterIndex) = userGuess
                     End If
                 Next
-                userEnteredWord = newUserEnteredWord.ToString()
+                UserEnteredWord = newUserEnteredWord.ToString()
             Else
                 ' User guessed wrong
-                livesRemaining = livesRemaining - 1
+                LivesRemaining = LivesRemaining - 1
             End If
         End While
 
         ' Game is over, check if user won
         Console.Clear()
-        If (userEnteredWord = selectedWord) Then
-            slowTypeNewLine(String.Format("Congratulations, {0}, you saved the hangman!", userName), WORD_TYPE_INTERVAL, ConsoleLogType.Info)
+        If (UserEnteredWord = SelectedWord) Then
+            SlowTypeNewLine(String.Format("Congratulations, {0}, you saved the hangman!", userName), WORD_TYPE_INTERVAL, ConsoleLogType.Info)
         Else
-            slowTypeNewLine("Oh no! You were unable to save the hangman in time!", WORD_TYPE_INTERVAL, ConsoleLogType.Info)
-            slowTypeNewLine(String.Format("The word was {0}", selectedWord), WORD_TYPE_INTERVAL, ConsoleLogType.Info)
+            SlowTypeNewLine("Oh no! You were unable to save the hangman in time!", WORD_TYPE_INTERVAL, ConsoleLogType.Info)
+            SlowTypeNewLine(String.Format("The word was {0}", SelectedWord), WORD_TYPE_INTERVAL, ConsoleLogType.Info)
         End If
         ' Drop a line
         Console.WriteLine()
 
         ' Tell user game is over
-        slowTypeNewLine("Thanks for playing!", WORD_TYPE_INTERVAL, ConsoleLogType.Info)
-        slowTypeNewLine("Press any key to close the game.", WORD_TYPE_INTERVAL, ConsoleLogType.RequestAction)
+        SlowTypeNewLine("Thanks for playing!", WORD_TYPE_INTERVAL, ConsoleLogType.Info)
+        SlowTypeNewLine("Press any key to close the game.", WORD_TYPE_INTERVAL, ConsoleLogType.RequestAction)
         Console.ReadKey(True)
     End Sub
 End Module
