@@ -201,6 +201,9 @@ Module Project
             Console.WriteLine(spaceMessageOut(userEnteredWord))
             Console.WriteLine(Environment.NewLine)
 
+            ' Write the amount of lives remaining
+            Console.WriteLine(String.Format("You have {0} lives remaining!", livesRemaining))
+
             ' Write the letters the user has guessed
             Console.WriteLine("You have guessed the following letters:")
             Dim userGuessedLetters = ""
