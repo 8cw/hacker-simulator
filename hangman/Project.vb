@@ -7,23 +7,23 @@ Module Project
     ''' <summary>
     ''' The minimum requirement for the length of the words for the game
     ''' </summary>
-    Public Const MIN_WORD_COUNT = 3
+    Public Const MIN_WORD_COUNT As Integer = 3
     ''' <summary>
     ''' The maximum requirement for the length of the words for the game
     ''' </summary>
-    Public Const MAX_WORD_COUNT = 10
+    Public Const MAX_WORD_COUNT As Integer = 10
     ''' <summary>
     ''' An interval in miliseconds between each character
     ''' </summary>
-    Public Const WORD_TYPE_INTERVAL = 15
+    Public Const WORD_TYPE_INTERVAL As Integer = 15
     ''' <summary>
     ''' An interval in milliseconds between each line
     ''' </summary>
-    Public Const WORD_LINE_INTERVAL = 100
+    Public Const WORD_LINE_INTERVAL As Integer = 100
     ''' <summary>
     ''' An integer that represents the amount of lives someone gets before they die
     ''' </summary>
-    Public Const MAX_LIVES = 6
+    Public Const MAX_LIVES As Integer = 6
 
     ' Make public Items
     ''' <summary>
@@ -32,7 +32,7 @@ Module Project
     Public HANGMAN_OBJ As Dictionary(Of Integer, String) = New Dictionary(Of Integer, String)
 
     ''' <summary>
-    ''' Arrays holding all the possible words for each difficulty setting
+    ''' A dictionary that holds all the possible words for each difficulty setting
     ''' </summary>
     Public PossibleWords As Dictionary(Of Integer, String()) = New Dictionary(Of Integer, String())
 
@@ -40,7 +40,7 @@ Module Project
     ''' <summary>
     ''' The splash screen to show to the user when they first start the program
     ''' </summary>
-    Private Const SPLASH_SCREEN = "  _                                             
+    Private Const SPLASH_SCREEN As String = "  _                                             
  | |                                            
  | |__   __ _ _ __   __ _ _ __ ___   __ _ _ __  
  | '_ \ / _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ 
@@ -68,7 +68,7 @@ Module Project
     ''' <summary>
     ''' The random object to use to calculate random things
     ''' </summary>
-    Private RandomObj As New Random
+    Private RandomObj As New Random()
 
     ''' <summary>
     ''' Asks the user for a difficulty between <c>MIN_WORD_COUNT</c> and <c>MAX_WORD_COUNT</c> repeatedly until they give a valid response.
